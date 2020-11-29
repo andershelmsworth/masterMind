@@ -29,8 +29,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="gameClass.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="index.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="routes\index.js" />
+    <Content Include="views\404.ejs" />
+    <Content Include="views\500.ejs" />
+    <Content Include="views\pages\index.ejs" />
+    <Content Include="views\partials\dashboardHeader.ejs" />
+    <Content Include="views\partials\footer.ejs" />
+    <Content Include="views\partials\head.ejs" />
+    <Content Include="views\partials\mainHeader.ejs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="routes\" />
+    <Folder Include="views\" />
+    <Folder Include="views\pages\" />
+    <Folder Include="views\partials\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
 </Project>

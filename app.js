@@ -11,6 +11,10 @@ app.set('view engine', 'ejs');
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
+/* This allows accessing resources using '/resource' instead of '/public/resource' (CSS, Images, etc...) */
+app.use(express.static(__dirname + '/public'));
+app.use('/public', express.static(__dirname + '/public'));
+
 //Session secret
 app.use(session({
     secret: 'ssshhhhh',
@@ -31,7 +35,6 @@ var route_index = require("./routes/index.js");
 app.use(route_index);
 
 console.log('Hello world');
-
 
 /******************
  * Error pages
@@ -57,3 +60,7 @@ app.listen(port);
 console.log('Server is running at http://localhost:8080/.\nCMD+C to quit.');
 
 module.exports = app;
+
+/* WORKS CITED
+EECS Contributors. "Node and Databases." Canvas, https://eecs.oregonstate.edu/ecampus-video/CS290/core-content/node-mysql/node-mysql.html.
+*/
