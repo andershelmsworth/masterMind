@@ -55,7 +55,7 @@ app.use(function (err, req, res, next) {
  * Launch communication
  ******************/
 
-const port = 6725;
+const port = 6727;
 app.listen(port);
 console.log('Server is running at http://localhost:8080/.\nCMD+C to quit.');
 
