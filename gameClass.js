@@ -36,6 +36,7 @@ class Game {
             this.rows[i] = new Row;
         }
         this.winState = false;
+        this.turn = 0;
     }
 
     // Getter
@@ -50,7 +51,8 @@ class Game {
         for (let i = 0; i < 12; i++) {
             this.rows[i] = new Row;
         }
-        this.won = false;
+        this.winState = false;
+        this.turn = 0;
     }
 
 }

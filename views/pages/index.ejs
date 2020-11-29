@@ -16,38 +16,78 @@
 		<thead>
 		<th>Guess #</th>
 		<th colspan="4">Code Pegs</th>
+		<th></th>
 		<th colspan="2">Key Pegs</th>
 		</thead>
 		<tbody>
 		<% rowCounter = 0; %>
 		<% results.forEach(function(thing){ %>
+		
+		<% if (turn == rowCounter) { %>
 		<tr class="guessRow">
+		<form action="/submitGuess" method="POST">
 		<td><%= rowCounter %></td>
 		<td><button class="peg" type="button" style="background-color:<%= thing.pegOne %>" value="<%= thing.pegOne %>">
-			<input type="hidden" name="pegOne" value="">
+			<input type="hidden" name="pegOne" value=""></button>
 		</td>
 		<td><button class="peg" type="button" style="background-color:<%= thing.pegTwo %>" value="<%= thing.pegTwo %>">
-		<input type="hidden" name="pegTwo" value="">
+		<input type="hidden" name="pegTwo" value=""></button>
 		</td>
 		<td><button class="peg" type="button" style="background-color:<%= thing.pegThree %>" value="<%= thing.pegThree %>">
-		<input type="hidden" name="pegThree" value="">
+		<input type="hidden" name="pegThree" value=""></button>
 		</td>
 		<td><button class="peg" type="button" style="background-color:<%= thing.pegFour %>" value="<%= thing.pegFour %>">
-		<input type="hidden" name="pegFour" value="">
+		<input type="hidden" name="pegFour" value=""></button>
+		</td>
+		<td>
+		<button type="submit" value="Submit" name="guess" class="guessButton">Guess</button>
 		</td>
 		<td>
 		<table>
 		<tr>
-		<td><button type="button" class="j" style="background-color:<%= thing.jOne.color %>"></td>
-		<td><button type="button" class="j" style="background-color:<%= thing.jTwo.color %>"></td>
+		<td><button type="button" class="j" style="background-color:<%= thing.jOne.color %>" disabled></td>
+		<td><button type="button" class="j" style="background-color:<%= thing.jTwo.color %>" disabled></td>
 		</tr>
 		<tr>
-		<td><button type="button" class="j" style="background-color:<%= thing.jThree.color %>"></td>
-		<td><button type="button" class="j" style="background-color:<%= thing.jFour.color %>"></td>
+		<td><button type="button" class="j" style="background-color:<%= thing.jThree.color %>" disabled></td>
+		<td><button type="button" class="j" style="background-color:<%= thing.jFour.color %>" disabled></td>
+		</tr>
+		</table>
+		</td>
+		</form>
+		</tr>
+		<% } else { %>
+		<tr class="guessRow">
+		<td><%= rowCounter %></td>
+		<td><button class="peg" type="button" style="background-color:<%= thing.pegOne %>" value="<%= thing.pegOne %>" disabled>
+			<input type="hidden" name="pegOne" value=""></button>
+		</td>
+		<td><button class="peg" type="button" style="background-color:<%= thing.pegTwo %>" value="<%= thing.pegTwo %>" disabled>
+		<input type="hidden" name="pegTwo" value=""></button>
+		</td>
+		<td><button class="peg" type="button" style="background-color:<%= thing.pegThree %>" value="<%= thing.pegThree %>" disabled>
+		<input type="hidden" name="pegThree" value=""></button>
+		</td>
+		<td><button class="peg" type="button" style="background-color:<%= thing.pegFour %>" value="<%= thing.pegFour %>" disabled>
+		<input type="hidden" name="pegFour" value=""></button>
+		</td>
+		<td>
+		</td>
+		<td>
+		<table>
+		<tr>
+		<td><button type="button" class="j" style="background-color:<%= thing.jOne.color %>" disabled></td>
+		<td><button type="button" class="j" style="background-color:<%= thing.jTwo.color %>" disabled></td>
+		</tr>
+		<tr>
+		<td><button type="button" class="j" style="background-color:<%= thing.jThree.color %>" disabled></td>
+		<td><button type="button" class="j" style="background-color:<%= thing.jFour.color %>" disabled></td>
 		</tr>
 		</table>
 		</td>
 		</tr>
+		<% } %>
+
 		<% rowCounter = rowCounter + 1; %>
 		<% }) %>
 		
@@ -59,7 +99,6 @@
 <script>
 	  document.getElementById("board").addEventListener("click",
 	function addPhase(submission) {
-		submission.preventDefault();
 		let target = event.target;
 		
 		//not a peg that was clicked
@@ -67,42 +106,51 @@
 			return;
 		}
 		
+		submission.preventDefault();
+		
 		let targetColor = target.value;
 		
 		switch (targetColor) {
 		case '#C8C8C8':
 			target.value = '#dc3545';
 			target.setAttribute("style", "background-color: #dc3545;");
+			target.children[0].value = '#dc3545';
 			break;
 		
 		case '#dc3545':
 			target.value = '#fd7e14';
 			target.setAttribute("style", "background-color: #fd7e14;");
+			target.children[0].value = '#fd7e14';
 			break;
 		
 		case '#fd7e14':
 			target.value = '#ffc107';
 			target.setAttribute("style", "background-color: #ffc107;");
+			target.children[0].value = '#ffc107';			
 			break;
 		
 		case '#ffc107':
 			target.value = '#28a745';
 			target.setAttribute("style", "background-color: #28a745;");
+			target.children[0].value = '#28a745';
 			break;
 		
 		case '#28a745':
 			target.value = '#007bff';
 			target.setAttribute("style", "background-color: #007bff;");
+			target.children[0].value = '#007bff';
 			break;
 			
 		case '#007bff':
 			target.value = '#6f42c1';
 			target.setAttribute("style", "background-color: #6f42c1;");
+			target.children[0].value = '#6f42c1';
 			break;
 			
 		case '#6f42c1':
 			target.value = '#dc3545';
 			target.setAttribute("style", "background-color: #dc3545;");
+			target.children[0].value = '#dc3545';
 			break;
 			
 		}
@@ -143,7 +191,11 @@
 		width: 10px;
 		height: 10px;
 		border-radius: 5px;
-		
+		}
+		.guessButton {
+		border-radius: 5px;
+		background-color: #000080 !important;
+		color: #FFFFFF !important;
 		}
 	  </style>
 

@@ -9,9 +9,26 @@ router.get('/', function (req, res, next) {
     sess = req.session;
     let test = myGame.rows;
     res.render('pages/index', {
-        results: myGame.rows
+        results: myGame.rows,
+        turn: myGame.turn
     });
     console.log("reloaded");
 });
+
+
+router.post('/submitGuess', function (req, res, next) {
+    sess = req.session;
+    let test = myGame.rows;
+
+    //Process guess here
+    var { pegOne, pegTwo, pegThree, pegFour } = req.body;
+
+    res.render('pages/index', {
+        results: myGame.rows,
+        turn: myGame.turn
+    });
+    console.log("reloaded");
+});
+
 
 module.exports = router;
