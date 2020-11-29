@@ -1,0 +1,13 @@
+.container {
+    max-width: 2000px;
+}
+
+.jumbotron {
+	background-color: #d2b48c;
+	
+}
+
+body {
+	background-color: #d2b48c;
+	color: #FFFFFF;
+}
