@@ -1,0 +1,2 @@
+C:\Users\Work\source\repos\masterMind\obj\Debug\masterMind.njsprojAssemblyReference.cache
+C:\Users\Work\source\repos\masterMind\bin\Microsoft.NodejsTools.WebRole.dll
