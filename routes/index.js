@@ -69,7 +69,7 @@ router.post('/resetGame', function (req, res, next) {
     sess = req.session;
     let test = myGame.rows;
 
-    //reset the game
+    //reset the game 
     myGame.reset();
 
     res.render('pages/index', {

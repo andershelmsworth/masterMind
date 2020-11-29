@@ -5,18 +5,94 @@
 <head>
     <%- include ('../partials/head') %>
 </head>
-<body class="container">
+<body class="container" id="theBody">
 
 <main>
     <div class="jumbotron">
-		<h3>Implementation of the
-        <h1>MASTERMIND©</h1>
-        <h3>satisfiability problem</h3>
-		<table id="parentTable">
+		<table id="instructions" width="100%">
 		<tbody>
 		<tr>
-		<td>
-        <table id="board">
+		<td width="500px" style="max-width: 500px !important; margin-right:50px;">
+		<div style="width: 400px; font-size: 20px !important; margin-right:50px;">
+		<h3 width="500px" style="max-width: 500px !important; margin-right:50px;">Implementation of the
+        <h1 width="500px" style="max-width: 500px !important; margin-right:50px;">MASTERMIND©</h1>
+        <h3 width="500px" style="max-width: 500px !important; margin-right:50px;">satisfiability problem</h3>
+		<br>
+		</div>
+		</td>
+		</tr>
+		</tbody>
+		</table>
+		<div class="fixed" style="width: 1200px; font-size: 24px !important; padding-left:50px !important;">
+		
+		
+		<% if (failure) { %>
+		<div class="winCon" width="100%" style="display:none;">
+
+		<style type="text/css">
+	    #guessButton {
+	    display: none !important;
+		}
+		.winCon {
+			display: inline !important;
+		}
+		.winCon div, .fixed {
+			background-color: red !important;
+		}
+	    </style>
+		
+		<div style="background-color: red !important; text-align:center;">
+		<h1>FAILURE</h1>
+		<br>
+		<br>
+		<p>Play Again?</p>
+		<p>
+		<form method="POST" action="/resetGame">
+		<button type="submit" value="submit">Play Again</button>
+		</form>
+		</div>
+		<% } else if (victory) { %>
+		<div class="winCon" width="100%" style="display:none;">
+		<style type="text/css">
+	    #guessButton {
+	    display: none !important;
+		}
+		.winCon {
+			display: inline !important;
+		}
+		.winCon div, .fixed {
+			background-color: green !important;
+		}
+	    </style>
+		
+		<div style="background-color: green !important; text-align:center;">
+		<h1>VICTORY</h1>
+		<br>
+		<br>
+		<p>Play Again?</p>
+		<p>
+		<form method="POST" action="/resetGame">
+		<button type="submit" value="submit">Play Again</button>
+		</form>
+		</div>
+		<% } else { %>
+		<div class="instructions">
+		<p>Instructions:</p>
+		<p>The computer has generated a series of four colored code pegs. Repeatedly click the grey circles to cycle through and select one of 6 colors for each code peg. Then, click 'Guess' to check your guess.</p>
+		<p>The computer will return a series of white or black answer pegs: one black answer peg for every code peg you guessed that is in the right position and has the right color, one white answer peg for each code peg of correct color but incorrect position.</p>
+		<p>If you can guess the sequence in 12 tries or less, you win!</p>
+		</div>
+		
+		<% } %>
+		</div>
+		</div>
+		
+		<br>
+		<table id="parentTable" width="100%">
+		<tbody>
+		<tr>
+		<td width="550px">
+        <table id="board" width="549px">
 		<thead>
 		<th>Guess #</th>
 		<th colspan="4">Code Pegs</th>
@@ -49,16 +125,21 @@
 		<td>
 		<table>
 		<tr>
-		<td><button type="button" class="j" style="background-color:<%= thing.jOne.color %>" disabled></td>
-		<td><button type="button" class="j" style="background-color:<%= thing.jTwo.color %>" disabled></td>
+		<td><button type="button" class="j" style="background-color:<%= thing.rating[0] %>" disabled></td>
+		<td><button type="button" class="j" style="background-color:<%= thing.rating[1] %>" disabled></td>
 		</tr>
 		<tr>
-		<td><button type="button" class="j" style="background-color:<%= thing.jThree.color %>" disabled></td>
-		<td><button type="button" class="j" style="background-color:<%= thing.jFour.color %>" disabled></td>
+		<td><button type="button" class="j" style="background-color:<%= thing.rating[2] %>" disabled></td>
+		<td><button type="button" class="j" style="background-color:<%= thing.rating[3] %>" disabled></td>
 		</tr>
 		</table>
 		</td>
 		</form>
+		</tr>
+		<tr>
+		<td colspan="6">
+		<hr />
+		</td>
 		</tr>
 		<% } else { %>
 		<tr class="guessRow">
@@ -80,14 +161,19 @@
 		<td>
 		<table>
 		<tr>
-		<td><button type="button" class="j" style="background-color:<%= thing.jOne.color %>" disabled></td>
-		<td><button type="button" class="j" style="background-color:<%= thing.jTwo.color %>" disabled></td>
+		<td><button type="button" class="j" style="background-color:<%= thing.rating[0] %>" disabled></td>
+		<td><button type="button" class="j" style="background-color:<%= thing.rating[1] %>" disabled></td>
 		</tr>
 		<tr>
-		<td><button type="button" class="j" style="background-color:<%= thing.jThree.color %>" disabled></td>
-		<td><button type="button" class="j" style="background-color:<%= thing.jFour.color %>" disabled></td>
+		<td><button type="button" class="j" style="background-color:<%= thing.rating[2] %>" disabled></td>
+		<td><button type="button" class="j" style="background-color:<%= thing.rating[3] %>" disabled></td>
 		</tr>
 		</table>
+		</td>
+		</tr>
+		<tr>
+		<td colspan="6">
+		<hr />
 		</td>
 		</tr>
 		<% } %>
@@ -98,51 +184,7 @@
 		</tbody>
 		</table>
 		</td>
-		<td width="100%" id="winCon">
 		
-		<% if (failure) { %>
-		
-		<style type="text/css">
-	    #guessButton {
-	    display: none !important;
-		#winCon {
-			background-color: red !important;
-		}
-	    </style>
-		
-		<div style="background-color: red !important; text-align:center;">
-		<h1>FAILURE</h1>
-		<br>
-		<br>
-		<p>Play Again?</p>
-		<p>
-		<form method="POST" action="/resetGame">
-		<button type="submit" value="submit">Play Again</button>
-		</form>
-		</div>
-		<% } else if (victory) { %>
-		
-		<style type="text/css">
-	    #guessButton {
-	    display: none !important;
-		#winCon {
-			background-color: green !important;
-		}
-	    </style>
-		
-		<div style="background-color: green !important; text-align:center;">
-		<h1>VICTORY</h1>
-		<br>
-		<br>
-		<p>Play Again?</p>
-		<p>
-		<form method="POST" action="/resetGame">
-		<button type="submit" value="submit">Play Again</button>
-		</form>
-		</div>
-		<% } %>
-		
-		</td>
 		</tr>
 		</tbody>
 		</table>
@@ -174,6 +216,18 @@
 </main>
 
 <script>
+window.addEventListener("load", function() { 
+	var theGuessButton = document.getElementById('guessButton').parentNode;
+	var tdTop = theGuessButton.offsetTop;
+	var tr = theGuessButton.parentNode;
+	var trTop = tr.offsetTop;
+	var tbody = tr.parentNode;
+	var tbodyTop = tbody.offsetTop;
+	var table = tbody.parentNode;
+	var tableTop = theGuessButton.parentNode.offsetTop;
+	var totalOffset = tbodyTop + tableTop;
+	document.documentElement.scrollTop = totalOffset;
+} );
 	  document.getElementById("board").addEventListener("click",
 	function addPhase(submission) {
 		let target = event.target;
@@ -256,8 +310,12 @@
 	  #board {
 		border-collapse: separate;
 		border-spacing: 20px 20px !important;
-		margin: 12px !important;
 		border: 1px solid #000000 !important;
+		}
+		#instructions {
+		border-collapse: separate;
+		border-spacing: 20px 20px !important;
+		display: inline !important;
 		}
 		.peg {
 		width: 40px;

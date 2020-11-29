@@ -35,6 +35,9 @@
     <Content Include="index.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="linkedList.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="routes\index.js" />
