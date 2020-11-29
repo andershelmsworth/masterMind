@@ -12,6 +12,10 @@
 		<h3>Implementation of the
         <h1>MASTERMIND©</h1>
         <h3>satisfiability problem</h3>
+		<table id="parentTable">
+		<tbody>
+		<tr>
+		<td>
         <table id="board">
 		<thead>
 		<th>Guess #</th>
@@ -40,7 +44,7 @@
 		<input type="hidden" name="pegFour" value=""></button>
 		</td>
 		<td>
-		<button type="submit" value="Submit" name="guess" class="guessButton">Guess</button>
+		<button type="submit" value="Submit" name="guess" class="guessButton" id="guessButton">Guess</button>
 		</td>
 		<td>
 		<table>
@@ -93,6 +97,79 @@
 		
 		</tbody>
 		</table>
+		</td>
+		<td width="100%" id="winCon">
+		
+		<% if (failure) { %>
+		
+		<style type="text/css">
+	    #guessButton {
+	    display: none !important;
+		#winCon {
+			background-color: red !important;
+		}
+	    </style>
+		
+		<div style="background-color: red !important; text-align:center;">
+		<h1>FAILURE</h1>
+		<br>
+		<br>
+		<p>Play Again?</p>
+		<p>
+		<form method="POST" action="/resetGame">
+		<button type="submit" value="submit">Play Again</button>
+		</form>
+		</div>
+		<% } else if (victory) { %>
+		
+		<style type="text/css">
+	    #guessButton {
+	    display: none !important;
+		#winCon {
+			background-color: green !important;
+		}
+	    </style>
+		
+		<div style="background-color: green !important; text-align:center;">
+		<h1>VICTORY</h1>
+		<br>
+		<br>
+		<p>Play Again?</p>
+		<p>
+		<form method="POST" action="/resetGame">
+		<button type="submit" value="submit">Play Again</button>
+		</form>
+		</div>
+		<% } %>
+		
+		</td>
+		</tr>
+		</tbody>
+		</table>
+		
+		
+		<% if (failure) { %>
+		
+		<style type="text/css">
+	    #guessButton {
+	    display: none !important;
+	    </style>
+		
+		<div style="background-color: red !important; text-align:center;">
+		FAILURE
+		</div>
+		<% } else if (victory) { %>
+		
+		<style type="text/css">
+	    #guessButton {
+	    display: none !important;
+	    </style>
+		
+		<div style="background-color: green !important; text-align:center;">
+		VICTORY
+		</div>
+		<% } %>
+		
     </div>
 </main>
 

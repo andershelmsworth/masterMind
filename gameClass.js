@@ -37,6 +37,11 @@ class Game {
         }
         this.winState = false;
         this.turn = 0;
+
+        this.ansPegOne = colors.RED;
+        this.ansPegTwo = colors.BLUE;
+        this.ansPegThree = colors.RED;
+        this.ansPegFour = colors.BLUE;
     }
 
     // Getter
@@ -45,16 +50,38 @@ class Game {
     }
 
     reset() {
-        let rowArr = {};
-        this.rows = rowArr;
+        let newRowArr = [];
+        this.rows = newRowArr;
 
         for (let i = 0; i < 12; i++) {
             this.rows[i] = new Row;
         }
         this.winState = false;
         this.turn = 0;
+
+        this.ansPegOne = colors.RED;
+        this.ansPegTwo = colors.BLUE;
+        this.ansPegThree = colors.RED;
+        this.ansPegFour = colors.BLUE;
     }
 
+
+
+    checkGuess() {
+        if ((this.rows[this.turn].pegOne == this.ansPegOne) && (this.rows[this.turn].pegTwo == this.ansPegTwo) && (this.rows[this.turn].pegTwo == this.ansPegTwo) && (this.rows[this.turn].pegThree == this.ansPegThree) && (this.rows[this.turn].pegFour == this.ansPegFour)) {
+            //Matching guess found
+            this.winState = true;
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+
+    
+    //don't forget to check that this is the last turn
 }
 
 module.exports.Game = Game;
