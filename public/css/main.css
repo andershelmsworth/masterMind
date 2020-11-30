@@ -21,8 +21,8 @@ div.fixed {
   position: fixed;
   top: 0;
   right: 0;
-  width: 1000px;
-  height: 500px;
+  width: 50%;
+  height: 75%;
   border: 3px solid #000000;
   color: #FFFFFF;
   background-color: #000000;
