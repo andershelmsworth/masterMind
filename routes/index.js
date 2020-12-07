@@ -50,6 +50,9 @@ router.post('/submitGuess', function (req, res, next) {
         myGame.guess.pegThree = colors.NULL;
         myGame.guess.pegFour = colors.NULL;
 
+        //Advance the turnz
+        myGame.turn = myGame.turn + 1;
+
         res.render('pages/index', {
             results: myGame.rows,
             turn: myGame.turn,
