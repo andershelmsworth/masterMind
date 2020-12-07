@@ -8,6 +8,9 @@ const myGame = new Game;
 router.get('/', function (req, res, next) {
     sess = req.session;
     let test = myGame.rows;
+
+    myGame.provideGuess();
+
     res.render('pages/index', {
         results: myGame.rows,
         turn: myGame.turn,
@@ -44,6 +47,10 @@ router.post('/submitGuess', function (req, res, next) {
     }
     else if (check == false && myGame.turn < 11) {
         //Can advance to next turn
+        //Provide the computer's guess
+        myGame.provideGuess();
+
+        //Advance and render
         myGame.turn = myGame.turn + 1;
         res.render('pages/index', {
             results: myGame.rows,

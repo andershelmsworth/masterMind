@@ -19,8 +19,62 @@ class Peg {
         this.color = color;
         this.number = number;
         this.rated = false;
+
+        switch (color) {
+            case colors.RED:
+                this.index = 0;
+                break;
+            case colors.ORANGE:
+                this.index = 1;
+                break;
+            case colors.YELLOW:
+                this.index = 2;
+                break;
+            case colors.GREEN:
+                this.index = 3;
+                break;
+            case colors.BLUE:
+                this.index = 4;
+                break;
+            case colors.VIOLET:
+                this.index = 5;
+                break;
+            default:
+                break;
+        }
+
     }
 
+}
+
+class SolutionSet {
+    constructor() {
+        let solArr = [];
+        for (let i = 0; i < 6; i++) {
+            for (let j = 0; j < 6; j++) {
+                for (let k = 0; k < 6; k++) {
+                    for (let m = 0; m < 6; m++) {
+                        solArr.push([[i, j, k, m], 0]);
+                    }
+                }
+            }
+
+        }
+        this.solArr = solArr;
+    }
+}
+
+class Responses {
+    constructor() {
+        let responseArr = [];
+        for (let i = 0; i < 5; i++) {
+            for (let j = 0; j < 5; j++) {
+                responseArr.push([i, j]);
+            }
+
+        }
+        this.responseArr = responseArr;
+    }
 }
 
 class Row {
@@ -38,7 +92,7 @@ class Game {
     constructor() {
         let rowArr = [];
         this.rows = rowArr;
-
+        this.firstRun = true;
         for (let i = 0; i < 12; i++) {
             this.rows[i] = new Row;
         }
@@ -49,6 +103,16 @@ class Game {
         this.ansPegTwo = colors.BLUE;
         this.ansPegThree = colors.RED;
         this.ansPegFour = colors.BLUE;
+
+
+        let S = new SolutionSet;
+        let U = new SolutionSet;
+
+        this.S = S;
+        this.U = U;
+
+        this.answerPegs = [0, 4, 0, 4];
+
     }
 
     // Getter
@@ -133,6 +197,243 @@ class Game {
 
     }
 
+    translateGuess() {
+        let currentGuess = this.rows[this.turn];
+
+        let guessArr = [];
+
+        switch (currentGuess.pegOne) {
+            case colors.RED:
+                guessArr.push(0);
+                break;
+            case colors.ORANGE:
+                guessArr.push(1);
+                break;
+            case colors.YELLOW:
+                guessArr.push(2);
+                break;
+            case colors.GREEN:
+                guessArr.push(3);
+                break;
+            case colors.BLUE:
+                guessArr.push(4);
+                break;
+            case colors.VIOLET:
+                guessArr.push(5);
+                break;
+            default:
+                break;
+        }
+
+        switch (currentGuess.pegTwo) {
+            case colors.RED:
+                guessArr.push(0);
+                break;
+            case colors.ORANGE:
+                guessArr.push(1);
+                break;
+            case colors.YELLOW:
+                guessArr.push(2);
+                break;
+            case colors.GREEN:
+                guessArr.push(3);
+                break;
+            case colors.BLUE:
+                guessArr.push(4);
+                break;
+            case colors.VIOLET:
+                guessArr.push(5);
+                break;
+            default:
+                break;
+        }
+
+        switch (currentGuess.pegThree) {
+            case colors.RED:
+                guessArr.push(0);
+                break;
+            case colors.ORANGE:
+                guessArr.push(1);
+                break;
+            case colors.YELLOW:
+                guessArr.push(2);
+                break;
+            case colors.GREEN:
+                guessArr.push(3);
+                break;
+            case colors.BLUE:
+                guessArr.push(4);
+                break;
+            case colors.VIOLET:
+                guessArr.push(5);
+                break;
+            default:
+                break;
+        }
+
+        switch (currentGuess.pegFour) {
+            case colors.RED:
+                guessArr.push(0);
+                break;
+            case colors.ORANGE:
+                guessArr.push(1);
+                break;
+            case colors.YELLOW:
+                guessArr.push(2);
+                break;
+            case colors.GREEN:
+                guessArr.push(3);
+                break;
+            case colors.BLUE:
+                guessArr.push(4);
+                break;
+            case colors.VIOLET:
+                guessArr.push(5);
+                break;
+            default:
+                break;
+        }
+
+        return guessArr;
+
+    }
+
+    returnPegs(guess, answer) {
+        let guessArr = [new Peg(guess[0], 0), new Peg(guess[1], 1), new Peg(guess[2], 2), new Peg(guess[3], 3)];
+        let ansArr = [new Peg(answer[0], 0), new Peg(answer[1], 1), new Peg(answer[2], 2), new Peg(answer[3], 3)];
+        let pegsRated = 0;
+        let numBlack = 0;
+        let numWhite = 0;
+        let numNull = 0;
+        let pegString = "";
+
+        //Rate black pegs
+        for (let j = 0; j < 4; j++) {
+            if (guessArr[j].color == ansArr[j].color && guessArr[j].rated == false) {
+                //color and position matched
+                guessArr[j].rated = true;
+                ansArr[j].rated = true;
+                numBlack = numBlack + 1;
+                pegString = pegString + "B";
+            }
+        }
+
+        //Rate white pegs
+        for (let k = 0; k < 4; k++) {
+            for (let m = 0; m < 4; m++) {
+                if (guessArr[k].color == ansArr[m].color && guessArr[k].rated == false && ansArr[m].rated == false) {
+                    //Colors matched and they haven't been rated
+                    guessArr[k].rated = true;
+                    ansArr[m].rated = true;
+                    numWhite = numWhite + 1;
+                    pegString = pegString + "W";
+                }
+
+            }
+
+        }
+
+        return pegString;
+    }
+
+    translateResponseToString(response) {
+
+        let respString = "";
+
+        for (let i = 0; i < response[0]; i++) {
+            respString = respString + "B";
+        }
+
+        for (let i = 0; i < response[1]; i++) {
+            respString = respString + "W";
+        }
+
+        return respString;
+
+    }
+
+    prunables(guess, answer, rating) {
+
+        let hits = 0;
+
+        for (let i = 0; i < this.S.solArr.length; i++) {
+            let firstParam = this.returnPegs(guess, answer);
+            let secondParam = this.translateResponseToString(rating);
+            if (this.returnPegs(guess, answer) != this.translateResponseToString(rating)) {
+                //S = S - potential guess
+                hits++;
+            }
+        }
+
+        return hits;
+
+    }
+
+    //Solver
+    provideGuess() {
+
+        //Play 1122
+        if (this.firstRun === true) {
+            this.firstRun = false;
+            console.log([1, 1, 2, 2]);
+            return [1, 1, 2, 2];
+        }
+
+        let theResponses = new Responses;
+
+        let pegArr = this.translateGuess();
+
+        let ratingPegs = this.returnPegs(pegArr, [0, 4, 0, 4]);
+
+        //for s in S
+        for (let i = 0; i < this.S.solArr.length; i++) {
+            if (this.returnPegs(pegArr, this.S.solArr[i][0]) !== ratingPegs) {
+                //S = S - potential guess
+                this.S.solArr.splice(i, 1);
+            }
+        }
+
+        let currMax = 0;
+
+        //For U in U
+        for (let j = 0; j < this.S.solArr.length; j++) {
+            //for r in Responses
+            for (let k = 0; k < theResponses.responseArr.length; k++) {
+                //FIX THIS
+                this.S.solArr[j][1] = Math.max(currMax, this.prunables(pegArr, this.S.solArr[j][0], theResponses.responseArr[k]));
+                let thePrunes = this.prunables(pegArr, this.S.solArr[j][0], theResponses.responseArr[k]);
+                currMax = Math.max(currMax, this.prunables(pegArr, this.S.solArr[j][0], theResponses.responseArr[k]));
+            }
+        }
+
+        let theMin = this.S.solArr[0][1];
+        let candidateSolutions = [];
+
+        for (let k = 0; k < this.S.solArr.length; k++) {
+            theMin = Math.min(theMin, this.S.solArr[k][1]);
+        }
+
+        for (let m = 0; m < this.S.solArr.length; m++) {
+            if (this.S.solArr[m][1] == theMin) {
+                candidateSolutions.push(this.S.solArr[m]);
+            }
+        }
+
+        for (let n = 0; n < candidateSolutions.length; n++) {
+            for (let p = 0; p < this.S.solArr.length; p++) {
+                if (candidateSolutions[n][0] == this.S.solArr[p][0]) {
+                    console.log("found a candidate in S");
+                    console.log(candidateSolutions[n][0]);
+                    return candidateSolutions[n][0];
+                }
+            }
+        }
+
+        console.log("no candidate in S");
+        this.U.solArr.splice(0, 1);
+        console.log(candidateSolutions[0][0]);
+        return candidateSolutions[0][0];
+    }
 
     
     //don't forget to check that this is the last turn
