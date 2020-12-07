@@ -15,7 +15,8 @@ router.get('/', function (req, res, next) {
         results: myGame.rows,
         turn: myGame.turn,
         failure: false,
-        victory: false
+        victory: false,
+        guess: myGame.guess
     });
     console.log("reloaded");
 });
@@ -42,7 +43,8 @@ router.post('/submitGuess', function (req, res, next) {
             results: myGame.rows,
             turn: myGame.turn,
             victory: true,
-            failure: false
+            failure: false,
+            guess: myGame.guess
         });
     }
     else if (check == false && myGame.turn < 11) {
@@ -56,7 +58,8 @@ router.post('/submitGuess', function (req, res, next) {
             results: myGame.rows,
             turn: myGame.turn,
             victory: false,
-            failure: false
+            failure: false,
+            guess: myGame.guess
         });
     }
     else {
@@ -64,7 +67,8 @@ router.post('/submitGuess', function (req, res, next) {
             results: myGame.rows,
             turn: myGame.turn,
             failure: true,
-            victory: false
+            victory: false,
+            guess: myGame.guess
         });
     }
 
@@ -85,7 +89,8 @@ router.post('/resetGame', function (req, res, next) {
         results: myGame.rows,
         turn: myGame.turn,
         failure: false,
-        victory: false
+        victory: false,
+        guess: myGame.guess
     });
     console.log("reloaded");
 });

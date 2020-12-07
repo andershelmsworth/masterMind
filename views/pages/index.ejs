@@ -82,7 +82,26 @@
 		<p>The computer will return a series of white or black answer pegs: one black answer peg for every code peg you guessed that is in the right position and has the right color, one white answer peg for each code peg of correct color but incorrect position.</p>
 		<p>If you can guess the sequence in 12 tries or less, you win!</p>
 		</div>
-		
+		<div id="guess">
+		<table>
+		<tbody>
+		<tr>
+		<td><button class="peg" type="button" style="background-color:<%= guess.pegOne %>" value="<%= guess.pegOne %>">
+			<input type="hidden" name="pegOne" value=""></button>
+		</td>
+		<td><button class="peg" type="button" style="background-color:<%= guess.pegTwo %>" value="<%= guess.pegTwo %>">
+		<input type="hidden" name="pegTwo" value=""></button>
+		</td>
+		<td><button class="peg" type="button" style="background-color:<%= guess.pegThree %>" value="<%= guess.pegThree %>">
+		<input type="hidden" name="pegThree" value=""></button>
+		</td>
+		<td><button class="peg" type="button" style="background-color:<%= guess.pegFour %>" value="<%= guess.pegFour %>">
+		<input type="hidden" name="pegFour" value=""></button>
+		</td>
+		</tr>
+		</tbody>
+		</table>
+		</div>
 		<% } %>
 		</div>
 		</div>

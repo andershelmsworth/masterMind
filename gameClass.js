@@ -92,10 +92,14 @@ class Game {
     constructor() {
         let rowArr = [];
         this.rows = rowArr;
+
         this.firstRun = true;
         for (let i = 0; i < 12; i++) {
             this.rows[i] = new Row;
         }
+
+        this.guess = new Row;
+
         this.winState = false;
         this.turn = 0;
 
@@ -180,6 +184,100 @@ class Game {
             this.rows[this.turn].rating[x] = jcolors.WHITE;
         }
 
+    }
+
+    assignGuess(computersGuess) {
+        switch (computersGuess[0]) {
+            case 0:
+                this.guess.pegOne = colors.RED;
+                break;
+            case 1:
+                this.guess.pegOne = colors.ORANGE;
+                break;
+            case 2:
+                this.guess.pegOne = colors.YELLOW;
+                break;
+            case 3:
+                this.guess.pegOne = colors.GREEN;
+                break;
+            case 4:
+                this.guess.pegOne = colors.BLUE;
+                break;
+            case 5:
+                this.guess.pegOne = colors.VIOLET;
+                break;
+            default:
+                break;
+        }
+
+        switch (computersGuess[1]) {
+            case 0:
+                this.guess.pegTwo = colors.RED;
+                break;
+            case 1:
+                this.guess.pegTwo = colors.ORANGE;
+                break;
+            case 2:
+                this.guess.pegTwo = colors.YELLOW;
+                break;
+            case 3:
+                this.guess.pegTwo = colors.GREEN;
+                break;
+            case 4:
+                this.guess.pegTwo = colors.BLUE;
+                break;
+            case 5:
+                this.guess.pegTwo = colors.VIOLET;
+                break;
+            default:
+                break;
+        }
+
+        switch (computersGuess[2]) {
+            case 0:
+                this.guess.pegThree = colors.RED;
+                break;
+            case 1:
+                this.guess.pegThree = colors.ORANGE;
+                break;
+            case 2:
+                this.guess.pegThree = colors.YELLOW;
+                break;
+            case 3:
+                this.guess.pegThree = colors.GREEN;
+                break;
+            case 4:
+                this.guess.pegThree = colors.BLUE;
+                break;
+            case 5:
+                this.guess.pegThree = colors.VIOLET;
+                break;
+            default:
+                break;
+        }
+
+        switch (computersGuess[3]) {
+            case 0:
+                this.guess.pegFour = colors.RED;
+                break;
+            case 1:
+                this.guess.pegFour = colors.ORANGE;
+                break;
+            case 2:
+                this.guess.pegFour = colors.YELLOW;
+                break;
+            case 3:
+                this.guess.pegFour = colors.GREEN;
+                break;
+            case 4:
+                this.guess.pegFour = colors.BLUE;
+                break;
+            case 5:
+                this.guess.pegFour = colors.VIOLET;
+                break;
+            default:
+                break;
+        }
     }
 
 
@@ -396,26 +494,26 @@ class Game {
         let currMax = 0;
 
         //For U in U
-        for (let j = 0; j < this.S.solArr.length; j++) {
+        for (let j = 0; j < this.U.solArr.length; j++) {
             //for r in Responses
             for (let k = 0; k < theResponses.responseArr.length; k++) {
                 //FIX THIS
-                this.S.solArr[j][1] = Math.max(currMax, this.prunables(pegArr, this.S.solArr[j][0], theResponses.responseArr[k]));
-                let thePrunes = this.prunables(pegArr, this.S.solArr[j][0], theResponses.responseArr[k]);
-                currMax = Math.max(currMax, this.prunables(pegArr, this.S.solArr[j][0], theResponses.responseArr[k]));
+                this.U.solArr[j][1] = Math.max(currMax, this.prunables(pegArr, this.U.solArr[j][0], theResponses.responseArr[k]));
+                let thePrunes = this.prunables(pegArr, this.U.solArr[j][0], theResponses.responseArr[k]);
+                currMax = Math.max(currMax, this.prunables(pegArr, this.U.solArr[j][0], theResponses.responseArr[k]));
             }
         }
 
-        let theMin = this.S.solArr[0][1];
+        let theMin = 1296;
         let candidateSolutions = [];
 
         for (let k = 0; k < this.S.solArr.length; k++) {
             theMin = Math.min(theMin, this.S.solArr[k][1]);
         }
 
-        for (let m = 0; m < this.S.solArr.length; m++) {
-            if (this.S.solArr[m][1] == theMin) {
-                candidateSolutions.push(this.S.solArr[m]);
+        for (let m = 0; m < this.U.solArr.length; m++) {
+            if (this.U.solArr[m][1] == theMin) {
+                candidateSolutions.push(this.U.solArr[m]);
             }
         }
 
@@ -432,6 +530,9 @@ class Game {
         console.log("no candidate in S");
         this.U.solArr.splice(0, 1);
         console.log(candidateSolutions[0][0]);
+
+        this.assignGuess(candidateSolutions[0][0]);
+
         return candidateSolutions[0][0];
     }
 
