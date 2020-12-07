@@ -77,7 +77,8 @@
 		<% } else { %>
 		<div class="instructions">
 		<p>Instructions:</p>
-		<p>The designer has selected a series of four colored code pegs. It's up to you to guess the order and color of those pegs. Repeatedly click the large grey circles on the 'board' on the left to cycle through and select one of 6 colors for each code peg. Then, click 'Guess' to check your guess. The computer will return a series of white or black answer pegs to the board to 'rate' your guess: one black answer peg for every unrated code peg you guessed that is in the right position and has the right color, one white answer peg for each unrated code peg in your guess of correct color but incorrect position. If you can guess the sequence in 12 tries or less, you win!</p>
+		<p>The designer has selected a series of four colored code pegs. It's up to you to guess the order and color of those pegs. Repeatedly click the large grey circles on the 'board' on the left to cycle through and select one of 6 colors for each code peg. Then, click 'Guess' to check your guess. The computer will return 4 black, white, or grey answer pegs to the board to 'rate' your guess: one black answer peg for every unrated code peg you guessed that is in the right position and has the right color, one white answer peg for each unrated code peg in your guess of correct color but incorrect position. The remainder of the answer pegs will be grey. If you can guess the sequence in 12 tries or less, you win!</p>
+		<p><strong>NOTE: The solution algorithm below takes a few minutes to generate the first few guesses. Please be patient as the page loads.</strong></p>
 		</div>
 		<br>
 		<div>
@@ -109,8 +110,7 @@
 		<% } %>
 		</div>
 		</div>
-		
-		<br>
+		<p><strong>NOTE: The solution algorithm takes a few minutes to generate the first few guesses. Please be patient as the page loads.</strong></p>
 		<table id="parentTable" width="100%">
 		<tbody>
 		<tr>
@@ -120,7 +120,7 @@
 		<th>Guess #</th>
 		<th colspan="4">Code Pegs</th>
 		<th></th>
-		<th colspan="2">Key Pegs</th>
+		<th colspan="2">Answer Pegs</th>
 		</thead>
 		<tbody>
 		<% rowCounter = 0; %>
@@ -148,12 +148,12 @@
 		<td>
 		<table>
 		<tr>
-		<td><button type="button" class="j" style="background-color:<%= thing.rating[0] %>" disabled></td>
-		<td><button type="button" class="j" style="background-color:<%= thing.rating[1] %>" disabled></td>
+		<td></td>
+		<td></td>
 		</tr>
 		<tr>
-		<td><button type="button" class="j" style="background-color:<%= thing.rating[2] %>" disabled></td>
-		<td><button type="button" class="j" style="background-color:<%= thing.rating[3] %>" disabled></td>
+		<td></td>
+		<td></td>
 		</tr>
 		</table>
 		</td>
@@ -164,7 +164,7 @@
 		<hr />
 		</td>
 		</tr>
-		<% } else { %>
+		<% } else if (turn > rowCounter) { %>
 		<tr class="guessRow">
 		<td><%= rowCounter %></td>
 		<td><button class="peg" type="button" style="background-color:<%= thing.pegOne %>" value="<%= thing.pegOne %>" disabled>
@@ -190,6 +190,42 @@
 		<tr>
 		<td><button type="button" class="j" style="background-color:<%= thing.rating[2] %>" disabled></td>
 		<td><button type="button" class="j" style="background-color:<%= thing.rating[3] %>" disabled></td>
+		</tr>
+		</table>
+		</td>
+		</tr>
+		<tr>
+		<td colspan="6">
+		<hr />
+		</td>
+		</tr>
+
+		<% } else { %>
+		<tr class="guessRow">
+		<td><%= rowCounter %></td>
+		<td><button class="peg" type="button" style="background-color:<%= thing.pegOne %>" value="<%= thing.pegOne %>" disabled>
+			<input type="hidden" name="pegOne" value=""></button>
+		</td>
+		<td><button class="peg" type="button" style="background-color:<%= thing.pegTwo %>" value="<%= thing.pegTwo %>" disabled>
+		<input type="hidden" name="pegTwo" value=""></button>
+		</td>
+		<td><button class="peg" type="button" style="background-color:<%= thing.pegThree %>" value="<%= thing.pegThree %>" disabled>
+		<input type="hidden" name="pegThree" value=""></button>
+		</td>
+		<td><button class="peg" type="button" style="background-color:<%= thing.pegFour %>" value="<%= thing.pegFour %>" disabled>
+		<input type="hidden" name="pegFour" value=""></button>
+		</td>
+		<td>
+		</td>
+		<td>
+		<table>
+		<tr>
+		<td></td>
+		<td></td>
+		</tr>
+		<tr>
+		<td></td>
+		<td></td>
 		</tr>
 		</table>
 		</td>

@@ -546,7 +546,7 @@ class Game {
         }
         */
         console.log("no candidate in S");
-        this.S.solArr.splice(0, 1);
+        //this.S.solArr.splice(0, 1);
         console.log(candidateSolutions[0][0]);
 
         this.assignGuess(candidateSolutions[0][0]);
