@@ -9,7 +9,12 @@ router.get('/', function (req, res, next) {
     sess = req.session;
     let test = myGame.rows;
 
-    myGame.provideGuess();
+    myGame.guess.pegOne = colors.RED;
+    myGame.guess.pegTwo = colors.RED;
+    myGame.guess.pegThree = colors.ORANGE;
+    myGame.guess.pegFour = colors.ORANGE;
+
+    myGame.firstRun = false;
 
     res.render('pages/index', {
         results: myGame.rows,
