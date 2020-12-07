@@ -100,9 +100,9 @@ class Game {
         this.turn = 0;
 
         this.ansPegOne = colors.RED;
-        this.ansPegTwo = colors.BLUE;
-        this.ansPegThree = colors.RED;
-        this.ansPegFour = colors.BLUE;
+        this.ansPegTwo = colors.ORANGE;
+        this.ansPegThree = colors.YELLOW;
+        this.ansPegFour = colors.GREEN;
 
 
         let S = new SolutionSet;
@@ -111,7 +111,7 @@ class Game {
         this.S = S;
         this.U = U;
 
-        this.answerPegs = [0, 4, 0, 4];
+        this.answerPegs = [0, 1, 2, 3];
 
     }
 
@@ -132,9 +132,9 @@ class Game {
 
         //Current answer
         this.ansPegOne = colors.RED;
-        this.ansPegTwo = colors.BLUE;
-        this.ansPegThree = colors.RED;
-        this.ansPegFour = colors.BLUE;
+        this.ansPegTwo = colors.ORANGE;
+        this.ansPegThree = colors.YELLOW;
+        this.ansPegFour = colors.GREEN;
     }
 
     rateGuess() {
@@ -383,7 +383,7 @@ class Game {
 
         let pegArr = this.translateGuess();
 
-        let ratingPegs = this.returnPegs(pegArr, [0, 4, 0, 4]);
+        let ratingPegs = this.returnPegs(pegArr, [0, 1, 2, 3]);
 
         //for s in S
         for (let i = 0; i < this.S.solArr.length; i++) {
