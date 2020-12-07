@@ -460,8 +460,8 @@ class Game {
         let hits = 0;
 
         for (let i = 0; i < this.S.solArr.length; i++) {
-            let firstParam = this.returnPegs(guess, answer);
-            let secondParam = this.translateResponseToString(rating);
+            //let firstParam = this.returnPegs(guess, answer);
+            //let secondParam = this.translateResponseToString(rating);
             if (this.returnPegs(guess, answer) != this.translateResponseToString(rating)) {
                 //S = S - potential guess
                 hits++;
