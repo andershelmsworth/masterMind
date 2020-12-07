@@ -39,7 +39,7 @@ router.post('/submitGuess', function (req, res, next) {
     let check = myGame.checkGuess();
 
     if (check == true) {
-
+        //Game is won
         myGame.guess.pegOne = colors.NULL;
         myGame.guess.pegTwo = colors.NULL;
         myGame.guess.pegThree = colors.NULL;
@@ -55,6 +55,15 @@ router.post('/submitGuess', function (req, res, next) {
     }
     else if (check == false && myGame.turn < 11) {
         //Can advance to next turn
+
+        //Check to see if the user used the CPU's guess
+        if (myGame.rows[myGame.turn].pegOne == myGame.guess.pegOne && myGame.rows[myGame.turn].pegTwo == myGame.guess.pegTwo && myGame.rows[myGame.turn].pegThree == myGame.guess.pegThree && myGame.rows[myGame.turn].pegFour == myGame.guess.pegFour) {
+            //they did
+            //Splice out the guess
+            myGame.S.solArr.splice(myGame.spliceIndex, 1);
+        }
+
+
         //Provide the computer's guess
         myGame.provideGuess();
 
@@ -69,11 +78,11 @@ router.post('/submitGuess', function (req, res, next) {
         });
     }
     else {
-
-        myGame.guess.pegOne = colors.RED;
-        myGame.guess.pegTwo = colors.ORANGE;
-        myGame.guess.pegThree = colors.YELLOW;
-        myGame.guess.pegFour = colors.GREEN;
+        //Out of turns
+        myGame.guess.pegOne = colors.NULL;
+        myGame.guess.pegTwo = colors.NULL;
+        myGame.guess.pegThree = colors.NULL;
+        myGame.guess.pegFour = colors.NULL;
 
         res.render('pages/index', {
             results: myGame.rows,

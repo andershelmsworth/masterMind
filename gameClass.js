@@ -117,6 +117,8 @@ class Game {
 
         this.answerPegs = [0, 1, 2, 3];
 
+        this.spliceIndex = 0;
+
     }
 
     // Getter
@@ -139,6 +141,8 @@ class Game {
         this.ansPegTwo = colors.ORANGE;
         this.ansPegThree = colors.YELLOW;
         this.ansPegFour = colors.GREEN;
+
+        this.S = new SolutionSet;
     }
 
     rateGuess() {
@@ -523,7 +527,8 @@ class Game {
         for (let m = 0; m < this.S.solArr.length; m++) {
             if (this.S.solArr[m][1] == theMin) {
                 candidateSolutions.push(this.S.solArr[m]);
-                this.S.solArr.splice(m, 1);
+                //this.S.solArr.splice(m, 1);
+                this.spliceIndex = m;
                 m = this.S.solArr.length + 1;
             }
         }
