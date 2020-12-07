@@ -104,7 +104,7 @@ router.post('/resetGame', function (req, res, next) {
     //reset the game 
     myGame.reset();
 
-    myGame.provideGuess();
+    //myGame.provideGuess();
 
     res.render('pages/index', {
         results: myGame.rows,

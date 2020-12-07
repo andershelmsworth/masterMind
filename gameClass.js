@@ -143,6 +143,7 @@ class Game {
         this.ansPegFour = colors.GREEN;
 
         this.S = new SolutionSet;
+        this.firstRun = true;
     }
 
     rateGuess() {
