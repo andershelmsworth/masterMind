@@ -473,8 +473,14 @@ class Game {
         //Play 1122
         if (this.firstRun === true) {
             this.firstRun = false;
-            console.log([1, 1, 2, 2]);
-            return [1, 1, 2, 2];
+            console.log([0, 0, 1, 1]);
+
+            this.guess.pegOne = colors.RED;
+            this.guess.pegTwo = colors.RED;
+            this.guess.pegThree = colors.ORANGE;
+            this.guess.pegFour = colors.ORANGE;
+
+            return [0, 0, 1, 1];
         }
 
         let theResponses = new Responses;
@@ -494,13 +500,16 @@ class Game {
         let currMax = 0;
 
         //For U in U
-        for (let j = 0; j < this.U.solArr.length; j++) {
+        for (let j = 0; j < this.S.solArr.length; j++) {
             //for r in Responses
             for (let k = 0; k < theResponses.responseArr.length; k++) {
                 //FIX THIS
-                this.U.solArr[j][1] = Math.max(currMax, this.prunables(pegArr, this.U.solArr[j][0], theResponses.responseArr[k]));
-                let thePrunes = this.prunables(pegArr, this.U.solArr[j][0], theResponses.responseArr[k]);
-                currMax = Math.max(currMax, this.prunables(pegArr, this.U.solArr[j][0], theResponses.responseArr[k]));
+
+
+                //this.S.solArr[j][1] = Math.max(currMax, this.prunables(pegArr, this.S.solArr[j][0], theResponses.responseArr[k]));
+                //let thePrunes = this.prunables(pegArr, this.U.solArr[j][0], theResponses.responseArr[k]);
+                currMax = Math.max(currMax, this.prunables(pegArr, this.S.solArr[j][0], theResponses.responseArr[k]));
+                this.S.solArr[j][1] = currMax;
             }
         }
 
@@ -510,13 +519,16 @@ class Game {
         for (let k = 0; k < this.S.solArr.length; k++) {
             theMin = Math.min(theMin, this.S.solArr[k][1]);
         }
-
-        for (let m = 0; m < this.U.solArr.length; m++) {
-            if (this.U.solArr[m][1] == theMin) {
-                candidateSolutions.push(this.U.solArr[m]);
+        
+        for (let m = 0; m < this.S.solArr.length; m++) {
+            if (this.S.solArr[m][1] == theMin) {
+                candidateSolutions.push(this.S.solArr[m]);
+                this.S.solArr.splice(m, 1);
+                m = this.S.solArr.length + 1;
             }
         }
 
+        /*
         for (let n = 0; n < candidateSolutions.length; n++) {
             for (let p = 0; p < this.S.solArr.length; p++) {
                 if (candidateSolutions[n][0] == this.S.solArr[p][0]) {
@@ -526,9 +538,9 @@ class Game {
                 }
             }
         }
-
+        */
         console.log("no candidate in S");
-        this.U.solArr.splice(0, 1);
+        this.S.solArr.splice(0, 1);
         console.log(candidateSolutions[0][0]);
 
         this.assignGuess(candidateSolutions[0][0]);

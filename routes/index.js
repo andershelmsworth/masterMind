@@ -39,6 +39,12 @@ router.post('/submitGuess', function (req, res, next) {
     let check = myGame.checkGuess();
 
     if (check == true) {
+
+        myGame.guess.pegOne = colors.NULL;
+        myGame.guess.pegTwo = colors.NULL;
+        myGame.guess.pegThree = colors.NULL;
+        myGame.guess.pegFour = colors.NULL;
+
         res.render('pages/index', {
             results: myGame.rows,
             turn: myGame.turn,
@@ -63,6 +69,12 @@ router.post('/submitGuess', function (req, res, next) {
         });
     }
     else {
+
+        myGame.guess.pegOne = colors.RED;
+        myGame.guess.pegTwo = colors.ORANGE;
+        myGame.guess.pegThree = colors.YELLOW;
+        myGame.guess.pegFour = colors.GREEN;
+
         res.render('pages/index', {
             results: myGame.rows,
             turn: myGame.turn,
