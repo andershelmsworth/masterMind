@@ -63,4 +63,7 @@ module.exports = app;
 
 /* WORKS CITED
 EECS Contributors. "Node and Databases." Canvas, https://eecs.oregonstate.edu/ecampus-video/CS290/core-content/node-mysql/node-mysql.html.
+Knuth, Donald E. “The Computer As Master Mind.” Journal of Recreational Mathematics, Vol 9(1), 1976-77. Retrieved from https://www.cs.uni.edu/~wallingf/teaching/cs3530/resources/knuth-mastermind.pdf.
+Wikipedia Contributors. “Mastermind (board game).” Wikipedia, https://en.wikipedia.org/wiki/Mastermind_(board_game).
+
 */

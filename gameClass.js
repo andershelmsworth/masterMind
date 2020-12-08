@@ -1,3 +1,4 @@
+//CITATION: See Knuth, Wikipedia Contributors, Works Cited in app.js
 const colors = {
     RED: '#dc3545',
     ORANGE: '#fd7e14',
