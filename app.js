@@ -57,7 +57,7 @@ app.use(function (err, req, res, next) {
 
 const port = 6727;
 app.listen(port);
-console.log('Server is running at http://localhost:8080/.\nCMD+C to quit.');
+console.log('Server is running \nCMD+C to quit.');
 
 module.exports = app;
 
