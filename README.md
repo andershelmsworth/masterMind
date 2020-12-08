@@ -52,7 +52,7 @@ npm install
 
 and hit Enter. It's safe to ignore the warnings about the repository and license field, in the author's estimation.
 
-5) Start the server. Type the following:
+5) Start the server. Note before you do that pressing Control-C at any point after you start the server will terminate the program. You may also want to finish reading the instructions before proceeding. When ready, type the following:
 
 node app.js
 
